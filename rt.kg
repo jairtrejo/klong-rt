@@ -1,14 +1,25 @@
-w::256
-h::256
+aspect::16%9
 
-ppm::{.p("P3");
-      .p(,/$'w," ",h);
-      .p(255);
-      {.d(" ");.d(x)}''_255*x;
-      .p("")}
+:"From math module"
+rnd::{:[x<0;-1;1]*_0.5+#x}
 
-coords::,/{x,:\!w}'|!h
+w::400
+h::rnd(w%aspect)
 
-pixels::0.25,:/|'(%(h,w)-1)*:\coords
+vh::2
+vw::vh*aspect
+fl::1
 
-ppm(pixels)
+unit::{x%((+/{x^2}'x)^0.5)}
+
+white::[1 1 1]
+blue::[0.5 0.7 1]
+color::{u::unit(x);t::0.5*1+u@1;((1-t)*white)+t*blue}
+
+ori::(0,0,0)
+urc::(vw,vh,0)
+llc::ori-(2%:/urc)-(0,0,fl)
+ray::{llc+(urc*x,0)-ori}
+
+coords::(%(w,h)-1)*:\[],/({x,:/!w}'|!h)
+pixels::{color(ray(x))}'coords
