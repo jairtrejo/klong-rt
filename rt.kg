@@ -10,7 +10,7 @@ vh::2
 vw::vh*aspect
 fl::1
 
-unit::{x%((+/{x^2}'x)^0.5)}
+unit::{x%((+/x*x)^0.5)}
 
 ori::[0 0 0]
 urc::(vw,vh,0)
