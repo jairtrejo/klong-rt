@@ -1,4 +1,5 @@
 .l("rt.kg")
+.p("writing image")
 .tc(T::.oc("out.ppm"))
 .p("P3")
 .d(w);.d(" ");.p(h)

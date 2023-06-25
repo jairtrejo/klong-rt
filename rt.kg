@@ -19,11 +19,12 @@ ray::{llc+(urc*x)-ori}
 
 white::[1 1 1]
 blue::[0.5 0.7 1]
-sky::{u::unit(x);t::0.5*1+u@1;((1-t)*white)+t*blue}
+sky::{u::unit(x);t::{,0.5*1+x@1}'u;((1-t)*white)+t*blue}
 
-sphere::{[oc rd r a b c];oc::x;rd::y;r::z;a::+/r*r;b::2*+/oc*r;c::(+/oc*oc)-rd*rd;0<(b*b)-4*a*c}
-raycolor::{:[sphere(ori-[0 0 -1];0.5;x);[1 0 0];sky(x)]}
+sphere::{[oc rd r a b c];oc::x;rd::y;r::z;a::+/+r*r;b::2*+/+oc*r;c::(+/oc*oc)-rd*rd;0<(b*b)-4*a*c}
 
 coords::(%(w,h,0)-1)*:\[],/({(x,0),:/!w}'|!h)
-pixels::raycolor'ray(coords)
-
+rays::ray(coords)
+raycolor::sphere(ori-[0 0 -1];0.5;rays)
+pixels::sky(rays)
+pixels::pixels:=[[1 0 0]],raycolor?1
